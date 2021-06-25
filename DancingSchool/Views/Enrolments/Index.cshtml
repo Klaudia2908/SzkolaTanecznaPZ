@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DancingSchool.Models.Enrolment>
+
+@{
+    ViewBag.Title = "Zapisy";
+}
+
+<p>
+    @if (Session["idUser"] != null)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Szkoła
+        </th>
+        <th>
+            Nazwa kursu
+        </th>
+        <th>
+            Imię
+        </th>
+        <th>
+            Nazwisko
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Course.School.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Course.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.People.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.People.LastName)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.EnrolmentID }) 
+        @if (Session["idUser"] != null)
+        {
+            <span>|</span>
+            @Html.ActionLink("Edit", "Edit", new { id = item.EnrolmentID })
+            <span>|</span>
+            @Html.ActionLink("Delete", "Delete", new { id = item.EnrolmentID })
+        }
+    </td>
+</tr>
+}
+
+</table>
